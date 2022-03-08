@@ -12,14 +12,11 @@ const {
 
 } = require('../../controllers/thoughts-controller');
 
-// GET All Thoughts
-router.route('/').get(getAllThoughts);
+// GET All Thoughts and POST New Thought
+router.route('/').get(getAllThoughts).post(createThoughts);
 
 // GET Thoughts By Id
 router.route('/:id').get(getThoughtsById).put(updateThoughts).delete(deleteThoughts); 
-
-// POST New Thought
-router.route('/:userId').post(createThoughts);
 
 // POST New Reaction to Thought
 router.route('/:thoughtId/reactions').post(addReaction);

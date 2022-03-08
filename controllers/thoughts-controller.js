@@ -1,4 +1,4 @@
-const { Thoughts, User } = require('../models');
+const { Thoughts, Users } = require('../models');
 
 const thoughtsController = {
 
@@ -6,7 +6,7 @@ const thoughtsController = {
   createThoughts({params, body}, res) {
     Thoughts.create(body)
     .then(({_id}) => {
-        return Users.findOneAndUpdate({ _id: params.userId}, {$push: {thoughts: _id}}, {new: true});
+        return Users.findOneAndUpdate({ _id: body.userId}, {$push: {thoughts: _id}}, {new: true});
     })
     .then(dbThoughtsData => {
         if(!dbThoughtsData) {
@@ -79,7 +79,7 @@ const thoughtsController = {
 
   // CREATE new Reaction
   addReaction({params, body}, res) {
-    Thoughts.findOneAndUpdate({_id: params.thoughtId}, {$push: {reactions: body}}, {new: true, runValidators: true})
+    Thoughts.findOneAndUpdate({_id: body.thoughtId}, {$push: {reactions: body}}, {new: true, runValidators: true})
     .populate({path: 'reactions', select: '-__v'})
     .select('-__v')
     .then(dbThoughtsData => {
