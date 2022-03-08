@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { Users } = require('../models');
 
 const usersController = {
 
@@ -45,7 +45,7 @@ const usersController = {
 
   // UPDATE User by id
   updateUsers({ params, body }, res) {
-    User.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
+    Users.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
       .then(dbUserData => {
         if (!dbUserData) {
           res.status(404).json({ message: 'No User Found with this ID!' });
