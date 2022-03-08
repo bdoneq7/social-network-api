@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
-const UserSchema = new Schema(
+const UsersSchema = new Schema(
   {
     username: {
       type: String,
@@ -13,15 +13,15 @@ const UserSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      runValidators: true // Match a valid email address - reference Mongoose matching validation
+      match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/]
     },
     thoughts: [{
       type: Schema.Types.ObjectId,
-      ref: 'Thought'
+      ref: 'Thoughts'
     }],
     friends: [{
       type: Schema.Types.ObjectId,
-      ref: 'User'
+      ref: 'Users'
     }],
   },
   {
@@ -35,13 +35,10 @@ const UserSchema = new Schema(
 );
 
 // get total count of comments and replies on retrieval
-UserSchema.virtual('friendCount').get(function() {
-  return this.friends.reduce(
-    (total, friends) => total + friend.replies.length + 1,
-    0
-  );
+UsersSchema.virtual('friendCount').get(function() {
+  return this.friends.length;
 });
 
-const User = model('User', UserSchema);
+const User = model('Users', UsersSchema);
 
-module.exports = User;
+module.exports = Users;
