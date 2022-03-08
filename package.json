@@ -8,10 +8,11 @@
     "start": "node server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Brian Done",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "moment": "^2.29.1",
     "mongoose": "^5.9.7"
   }
 }
