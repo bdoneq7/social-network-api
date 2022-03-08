@@ -44,7 +44,7 @@ const usersController = {
 
 
   // UPDATE User by id
-  updateUser({ params, body }, res) {
+  updateUsers({ params, body }, res) {
     User.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
       .then(dbUserData => {
         if (!dbUserData) {
@@ -57,7 +57,7 @@ const usersController = {
   },
 
   // DELETE User
-  deleteUser({ params }, res) {
+  deleteUsers({ params }, res) {
     Users.findOneAndDelete({_id: params.id})
     .then(dbUsersData => {
         if(!dbUsersData) {
