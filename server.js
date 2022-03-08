@@ -9,6 +9,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 
+app.use(require('./routes'));
+
 // Check Task Manager Services to make sure MongoDB running
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/social-network-api', {
   useFindAndModify: false,
